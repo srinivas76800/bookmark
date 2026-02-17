@@ -33,7 +33,7 @@ const Navbar = () => {
     return (
         <nav className="flex items-center border mx-4 max-md:w-full max-md:justify-between border-slate-700 px-6 py-4 rounded-full text-white text-sm relative">
 
-            <Image src={user.picture} className="rounded-full mx-2" alt="pic" height={25} width={25} />
+            <Image src={user.picture? user.picture : 'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI='} className="rounded-full mx-2" alt="pic" height={25} width={25} />
             <a>{user.full_name}</a>
 
             {/* Desktop Menu */}
