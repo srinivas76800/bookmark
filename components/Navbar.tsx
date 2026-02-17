@@ -1,11 +1,10 @@
 import { supabase } from "@/lib/supabase";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { URL } from "url";
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const [user, setUser] = useState<any>('')
+    const [user, setUser] = useState<any | null>(null)
 
     const toggleMenu = () => {
         setIsOpen((prev) => !prev);
@@ -28,21 +27,30 @@ const Navbar = () => {
         })
         console.log(res, 'from google log..')
     }
+    //logout logic
+    const logout = async () => {
+        await supabase.auth.signOut()
+        setUser(null)
+    }
+
 
 
     return (
         <nav className="flex items-center border mx-4 max-md:w-full max-md:justify-between border-slate-700 px-6 py-4 rounded-full text-white text-sm relative">
 
             {user?.picture && (
-                <Image
-                    src={user.picture}
-                    alt="Profile"
-                    width={100}
-                    height={100}
-                />
+                <>
+                    <Image
+                        className="rounded-full mx-2"
+                        src={user.picture}
+                        alt="Profile"
+                        width={30}
+                        height={30}
+                    />
+                    <a>{user.full_name}</a>
+                </>
             )}
 
-            <a>{user.full_name}</a>
 
             {/* Desktop Menu */}
             <div className="hidden md:flex items-center gap-6 ml-7">
@@ -57,7 +65,7 @@ const Navbar = () => {
                 <a href="https://my-port-folio-liard-psi.vercel.app" className="border border-slate-600 hover:bg-slate-800 px-4 py-2 rounded-full">
                     My personal portfolio
                 </a>
-                <button onClick={loginWithGoogle} className="bg-white text-black px-4 py-2 rounded-full hover:shadow-[0px_0px_30px_14px] shadow-[0px_0px_30px_7px] hover:shadow-white/50 shadow-white/50 text-black px-4 py-2 rounded-full text-sm font-medium hover:bg-slate-100 transition duration-300">
+                <button onClick={user ? logout : loginWithGoogle} className="bg-white text-black px-4 py-2 rounded-full hover:shadow-[0px_0px_30px_14px] shadow-[0px_0px_30px_7px] hover:shadow-white/50 shadow-white/50 text-black px-4 py-2 rounded-full text-sm font-medium hover:bg-slate-100 transition duration-300">
                     {user ? ('log Out') : ('login with google')}
                 </button>
             </div>
