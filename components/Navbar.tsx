@@ -33,14 +33,22 @@ const Navbar = () => {
     return (
         <nav className="flex items-center border mx-4 max-md:w-full max-md:justify-between border-slate-700 px-6 py-4 rounded-full text-white text-sm relative">
 
-            <Image src={user.picture? user.picture : 'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI='} className="rounded-full mx-2" alt="pic" height={25} width={25} />
+            {user?.picture && (
+                <Image
+                    src={user.picture}
+                    alt="Profile"
+                    width={100}
+                    height={100}
+                />
+            )}
+
             <a>{user.full_name}</a>
 
             {/* Desktop Menu */}
             <div className="hidden md:flex items-center gap-6 ml-7">
                 <a className="relative overflow-hidden h-6 group">
                     <span className="block group-hover:-translate-y-full transition-transform duration-300">welcome back !</span>
-                    <span className="block absolute top-full left-0 group-hover:translate-y-[-100%] transition-transform duration-300">welcome back !</span>
+                    <span className="block absolute top-full left-0 group-hover:-translate-y-full transition-transform duration-300">welcome back !</span>
                 </a>
             </div>
 
@@ -50,7 +58,7 @@ const Navbar = () => {
                     My personal portfolio
                 </a>
                 <button onClick={loginWithGoogle} className="bg-white text-black px-4 py-2 rounded-full hover:shadow-[0px_0px_30px_14px] shadow-[0px_0px_30px_7px] hover:shadow-white/50 shadow-white/50 text-black px-4 py-2 rounded-full text-sm font-medium hover:bg-slate-100 transition duration-300">
-                    {user? ('log Out') : ('login with google') }
+                    {user ? ('log Out') : ('login with google')}
                 </button>
             </div>
 
